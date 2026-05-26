@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javivisports VR - Runner 3D</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght=400;700;900&family=Share+Tech+Mono&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #050a0f; font-family: 'Share Tech Mono', monospace; color: #00ffe7; overflow: hidden; height: 100vh; width: 100vw; }
+        #canvas-container { position: fixed; inset: 0; z-index: 1; }
+        
+        .overlay { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(5, 10, 15, 0.92); backdrop-filter: blur(6px); z-index: 20; gap: 20px; padding: 20px; text-align: center; }
+        .overlay h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(32px, 6vw, 64px); font-weight: 900; letter-spacing: 6px; text-shadow: 0 0 20px #00ffe7; }
+        .section-box { background: rgba(0, 255, 231, 0.05); border: 1px solid rgba(0, 255, 231, 0.2); border-radius: 6px; padding: 15px 25px; max-width: 500px; font-size: 14px; line-height: 1.6; }
+        .section-box h3 { font-family: 'Orbitron', sans-serif; color: #ffb800; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
+        .btn { font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; padding: 12px 35px; border: 1.5px solid #00ffe7; background: rgba(0, 255, 231, 0.1); color: #00ffe7; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+        .btn:hover { background: rgba(0, 255, 231, 0.25); box-shadow: 0 0 15px #00ffe7; transform: translateY(-2px); }
+        
+        /* HUD Y ALERTAS DE DAÑO */
+        #hud { position: fixed; top: 20px; left: 20px; background: rgba(0,255,231,0.05); border: 1px solid rgba(0,255,231,0.2); padding: 12px 20px; border-radius: 4px; z-index: 10; font-family: 'Orbitron', sans-serif; pointer-events: none; }
+        #damage-overlay { display: none; position: fixed; inset: 0; background: rgba(255, 0, 0, 0.35); z-index: 15; pointer-events: none; }
+        
+        .hud-label { font-size: 9px; opacity: 0.6; margin-top: 4px; letter-spacing: 1px; }
+        .hud-label:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="damage-overlay"></div>
+
+    <div id="hud">
+        <div class="hud-label">SCORE</div>
+        <div id="score-val" style="font-size: 18px; font-weight: bold;">000000</div>
+        
+        <div class="hud-label">MONEDAS</div>
+        <div id="coin-val" style="font-size: 18px; font-weight: bold; color: #ffd700;">000</div>
+        
+        <div class="hud-label">VIDAS</div>
+        <div id="lives-val" style="font-size: 18px; font-weight: bold; color: #ff3c5f; letter-spacing: 1px;">♥♥•</div>
+
+        <div class="hud-label">PODER ACTIVO</div>
+        <div id="power-val" style="font-size: 12px; font-weight: bold; color: #ffffff;">NINGUNO</div>
+    </div>
+
+    <div class="overlay" id="start-overlay">
+        <h1 id="main-title">JAVIVISPORTS VR</h1>
+        <p style="color: #ff3c5f; font-size: 13px; letter-spacing: 2px;">EDICIÓN REALIDAD VIRTUAL</p>
+
+        <div class="section-box" id="instructions-box">
+            <h3>Instrucciones del Juego</h3>
+            <p><strong>Controles (PC / Quest 3):</strong> Mueve el Joystick Izquierdo (o flechas) a los lados para evadir obstáculos. Joystick arriba para Saltar y abajo para Rodar.</p>
+            <p style="margin-top: 6px; color: #ffd700;">⚡ ¡Atrapa las Gemas de Poder!: Roja (Hiper Velocidad), Azul (Cámara Lenta) y Verde (Súper Salto).</p>
+        </div>
+
+        <div class="section-box" id="team-box">
+            <h3>Integrantes del Equipo</h3>
+            <p>Jhosmar Ortiz Martínez</p>
+            <p>Roberto Armenta Fuentes</p>
+            <p>Fernando Pérez Mejía</p>
+        </div>
+
+        <button class="btn" id="start-btn">INICIAR JUEGO</button>
+        <div id="vr-button-container" style="margin-top: 10px;"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <script type="module" src="main.js"></script>
+</body>
+</html>
